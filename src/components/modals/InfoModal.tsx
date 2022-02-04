@@ -1,3 +1,8 @@
+import { useState } from 'react'
+import {
+  loadGameOffsetFromLocalStorage,
+  saveGameOffsetToLocalStorage,
+} from '../../lib/localStorage'
 import { Cell } from '../grid/Cell'
 import { BaseModal } from './BaseModal'
 
@@ -7,6 +12,16 @@ type Props = {
 }
 
 export const InfoModal = ({ isOpen, handleClose }: Props) => {
+  const [offset, setOffset] = useState(loadGameOffsetFromLocalStorage())
+
+  const handleOffsetChange = (e: any) => {
+    const newOffset = +e.target.value || 0
+    setOffset(newOffset)
+    saveGameOffsetToLocalStorage(newOffset)
+  }
+  const handleLoadClick = () => {
+    document.location.reload()
+  }
   return (
     <BaseModal title="How to play" isOpen={isOpen} handleClose={handleClose}>
       <p className="text-sm text-gray-500">
@@ -46,6 +61,18 @@ export const InfoModal = ({ isOpen, handleClose }: Props) => {
       <p className="text-sm text-gray-500">
         The letter U is not in the word in any spot.
       </p>
+      <label className="text-gray-500">Game Offset</label>
+      <br />
+      <input
+        type="number"
+        placeholder="offset"
+        value={offset}
+        onChange={handleOffsetChange}
+      />
+      <br />
+      <button className="text-gray-500" onClick={handleLoadClick}>
+        Load
+      </button>
     </BaseModal>
   )
 }

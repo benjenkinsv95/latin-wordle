@@ -33,3 +33,14 @@ export const loadStatsFromLocalStorage = () => {
   const stats = localStorage.getItem(gameStatKey)
   return stats ? (JSON.parse(stats) as GameStats) : null
 }
+
+const gameOffsetKey = 'gameOffset'
+
+export const saveGameOffsetToLocalStorage = (offset: number) => {
+  localStorage.setItem(gameOffsetKey, JSON.stringify(offset))
+}
+
+export const loadGameOffsetFromLocalStorage = () => {
+  const offset = localStorage.getItem(gameOffsetKey)
+  return offset ? parseInt(offset) : 0
+}
