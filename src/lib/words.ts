@@ -19,7 +19,7 @@ export const getCurrentWord = () => {
   const now = Date.now()
   const msInDay = 86400000
   const offset = loadGameOffsetFromLocalStorage()
-  const index = Math.floor((now - epochMs) / msInDay) + offset
+  const index = (Math.floor((now - epochMs) / msInDay) + offset) % WORDS.length
 
   return {
     solution: WORDS[index].toUpperCase(),
